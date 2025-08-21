@@ -1,4 +1,4 @@
-import type { FormEvent, ReactNode } from "react"
+import type { ReactNode } from "react"
 import { Link } from "react-router";
 
 interface FormProps {
@@ -20,7 +20,7 @@ export function Form({ onSubmit, children, className ="", buttonLabel, buttonCla
         className={`flex flex-col ${className}`}
     >
         {children}
-    <div className="flex flex-col justify-center items-center gap-3">    
+    <div className="flex flex-col justify-center items-center gap-3">
         <button className={`cursor-pointer ${buttonClassName}`} name={buttonName}>
             {buttonLabel}
         </button>
@@ -28,7 +28,7 @@ export function Form({ onSubmit, children, className ="", buttonLabel, buttonCla
           <Link to={linkTo} className={linkClassName}>
             {linkLabel}
           </Link>
-        )}    
+        )}
     </div>
     </form>
   )
