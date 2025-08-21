@@ -14,7 +14,7 @@ class AuthService
 {
     use ApiRespones;
 
-    public function loginService($request)
+    public function login($request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return $this->makeResponse(
@@ -41,6 +41,29 @@ class AuthService
         return $this->makeResponse(
             ApiStatus::SUCCESS->value,
             'Login successful',
+            [
+                'token' => $token,
+                'user' => new UserResource($user->only('id', 'email'))
+            ]
+        );
+    }
+
+    public function register($request)
+    {
+        User::create($request->toArray());
+
+        $user = User::firstWhere('email', $request->email);
+        $token = $user->createToken(
+            'Api token for ' . $user->email,
+            ['*'],
+            now()->addHour()
+        )->plainTextToken;
+
+        $token = Str::after($token, '|');
+
+        return $this->makeResponse(
+            ApiStatus::SUCCESS->value,
+            'Registerd successful',
             [
                 'token' => $token,
                 'user' => new UserResource($user->only('id', 'email'))
