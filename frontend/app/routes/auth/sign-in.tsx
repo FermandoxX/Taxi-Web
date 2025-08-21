@@ -23,14 +23,29 @@ function SignIn() {
         resolver: zodResolver(schema)
     });
 
-    const handelLogin: SubmitHandler<ValidateTypes> = (data) => {
-        // try {
-        //     const response = await axios.post(""){
+    const handelLogin: SubmitHandler<ValidateTypes> = async (data) => {
+        const apiUrl = import.meta.env.VITE_API_URL;
 
-        //     }
-        // } catch (e) {
+        try {
+            const response = await axios.post(apiUrl + "/login", {
+                'email': data.email,
+                'password': data.password,
+            },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
-        // }
+            console.log("Login success:", response.data);
+        } catch (e: any) {
+            if (e.response) {
+                console.log("Login failed:", e.response.data);
+            } else {
+                console.log("Unexpected error:", e.message);
+            }
+        }
     };
 
     return (
