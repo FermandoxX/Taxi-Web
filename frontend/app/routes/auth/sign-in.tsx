@@ -4,7 +4,8 @@ import { FaLock } from "react-icons/fa";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from "axios";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import api from "../../config/axios";
 
 function SignIn() {
 
@@ -24,26 +25,20 @@ function SignIn() {
     });
 
     const handelLogin: SubmitHandler<ValidateTypes> = async (data) => {
-        const apiUrl = import.meta.env.VITE_API_URL;
+        // const apiUrl = import.meta.env.VITE_API_URL;
 
         try {
-            const response = await axios.post(apiUrl + "/login", {
+            const response = await api.post("/login", {
                 'email': data.email,
                 'password': data.password,
-            },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            })
 
-            console.log("Login success:", response.data);
+            toast.success("Login success");
         } catch (e: any) {
             if (e.response) {
-                console.log("Login failed:", e.response.data);
+                toast.error("Login failed: " + e.response);
             } else {
-                console.log("Unexpected error:", e.message);
+                toast.error("Unexpected error: " + + e.response);
             }
         }
     };
@@ -54,6 +49,21 @@ function SignIn() {
                 <div>
                     <img src="/assets/images/auth/sign-in.png" alt="sign-in" />
                 </div>
+
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Bounce}
+                />
+
                 <Form
                     onSubmit={handleSubmit(handelLogin)}
                     className="gap-10"
