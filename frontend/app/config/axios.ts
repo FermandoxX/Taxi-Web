@@ -28,22 +28,22 @@ export function setupInterceptors() {
             if (error.response?.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
 
-                // try {
-                // const refreshToken = localStorage.getItem("refresh_token");
-                // const { data } = await axios.post(
-                //     import.meta.env.VITE_API_URL + "/refresh",
-                //     { refresh_token: refreshToken }
-                // );
+                //     try {
+                //         const refreshToken = localStorage.getItem("refresh_token");
+                //         const { data } = await axios.post(
+                //             import.meta.env.VITE_API_URL + "/refresh",
+                //             { refresh_token: refreshToken }
+                //         );
 
-                // localStorage.setItem("access_token", data.access_token);
-                // originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
+                //         localStorage.setItem("access_token", data.access_token);
+                //         originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
 
-                // } catch (e) {
+                //     } catch (e) {
 
                 localStorage.removeItem("access_token");
-                // localStorage.removeItem("refresh_token");
-                // window.location.href = "/sign-in";
-                // }
+                //         localStorage.removeItem("refresh_token");
+                window.location.href = "/sign-in";
+                //     }
             }
 
             return Promise.reject(error);

@@ -21,10 +21,10 @@ class AuthService
                 ApiStatus::ERROR->value,
                 'Invalid credentials',
                 [
-                    'email' => 'Invalid',
-                    'password' => 'Invalid'
+                    'email' => 'Invalid email',
+                    'password' => 'Invalid password'
                 ],
-                ApiHttpStatus::UNAUTHORIZED->value
+                ApiHttpStatus::UNPROCESSABLE_CONTENT->value
             );
         }
 

@@ -46,9 +46,7 @@ class BaseRequest extends FormRequest
         $response = $this->makeResponse(
             ApiStatus::ERROR->value,
             'Some fields are incomplete or incorrect.',
-            [
-                $allErrors
-            ],
+            $allErrors,
             ApiHttpStatus::UNPROCESSABLE_CONTENT->value
         );
 
