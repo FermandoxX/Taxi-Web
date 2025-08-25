@@ -1,46 +1,19 @@
 import { InputField, Form } from "components"
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
-import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-import api from "../../config/axios";
+import { schema,type SignInFormValues } from "../../validations/auth/sign-in";
+import { postRequest } from "../../service/apiService";
 
 function SignIn() {
-
-    type ValidateTypes = {
-        email: string;
-        password: string;
-    };
-
-
-    const schema = z.object({
-        email: z.string().email('Invalid email'),
-        password: z.string().min(8, 'Password must be at least 8 characters')
-    });
-
-    const { register, handleSubmit, formState: { errors } } = useForm<ValidateTypes>({
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInFormValues>({
         resolver: zodResolver(schema)
     });
 
-    const handelLogin: SubmitHandler<ValidateTypes> = async (data) => {
-        // const apiUrl = import.meta.env.VITE_API_URL;
-
-        try {
-            const response = await api.post("/login", {
-                'email': data.email,
-                'password': data.password,
-            })
-
-            toast.success("Login success");
-        } catch (e: any) {
-            if (e.response) {
-                toast.error("Login failed: " + e.response);
-            } else {
-                toast.error("Unexpected error: " + + e.response);
-            }
-        }
+    const handelLogin: SubmitHandler<SignInFormValues> = async (data) => {
+        const result = postRequest({url:'/login',data});
     };
 
     return (

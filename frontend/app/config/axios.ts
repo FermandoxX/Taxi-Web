@@ -42,7 +42,7 @@ export function setupInterceptors() {
 
                 localStorage.removeItem("access_token");
                 // localStorage.removeItem("refresh_token");
-                window.location.href = "/sign-in";
+                // window.location.href = "/sign-in";
                 // }
             }
 
