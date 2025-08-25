@@ -49,7 +49,7 @@ class BaseRequest extends FormRequest
             [
                 $allErrors
             ],
-            ApiHttpStatus::BAD_REQUEST->value
+            ApiHttpStatus::UNPROCESSABLE_CONTENT->value
         );
 
         throw new HttpResponseException($this->sendResponse($response));
