@@ -3,39 +3,23 @@ import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Bounce, ToastContainer } from 'react-toastify';
 import { schema, type SignInFormValues } from "../../validations/auth/sign-in";
 import { postRequest } from "../../service/apiService";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-    const [serverErrors, setServerErrors] = useState<Record<string, string>>({})
     const navigate = useNavigate();
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<SignInFormValues>({
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInFormValues>({
         resolver: zodResolver(schema)
     });
 
     const handelLogin: SubmitHandler<SignInFormValues> = async (data) => {
         const result = await postRequest({ url: '/login', data });
-        setServerErrors({});
 
-        if (result.status == 'error') {
-            const errorFields = result.response;
-
-            Object.keys(errorFields).forEach((field) => {
-                setError(field as keyof SignInFormValues, {
-                    type: "server",
-                    message: errorFields[field]
-                });
-            });
-
-            setServerErrors(errorFields);
-
-        } else {
+        if (result.status == 'success') {
             localStorage.setItem("access_token", result.response.token);
-            navigate("/dashboard");
+            navigate("/home");
         }
 
     };
@@ -46,20 +30,6 @@ function SignIn() {
                 <div>
                     <img src="/assets/images/auth/sign-in.png" alt="sign-in" />
                 </div>
-
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                    transition={Bounce}
-                />
 
                 <Form
                     onSubmit={handleSubmit(handelLogin)}
@@ -81,7 +51,7 @@ function SignIn() {
                             type="text"
                             register={register}
                             placeholder="Email"
-                            error={errors.email?.message || serverErrors.email}
+                            error={errors.email?.message}
                             icon={<MdEmail />}
                         />
 
@@ -90,7 +60,7 @@ function SignIn() {
                             type="password"
                             register={register}
                             placeholder="Password"
-                            error={errors.password?.message || serverErrors.password}
+                            error={errors.password?.message}
                             icon={<FaLock size={17.5} />}
                         />
                     </div>

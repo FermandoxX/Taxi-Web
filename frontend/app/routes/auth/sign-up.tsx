@@ -6,38 +6,21 @@ import { MdEmail } from "react-icons/md";
 import { FiLock } from "react-icons/fi";
 import { schema, type SignUpFormValue } from '../../validations/auth/sign-up';
 import { postRequest } from "~/service/apiService";
-import { Bounce, ToastContainer } from 'react-toastify';
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-    const [serverErrors, setServerErrors] = useState<Record<string, string>>({})
     const navigate = useNavigate();
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<SignUpFormValue>({
+    const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormValue>({
         resolver: zodResolver(schema)
     });
 
     const handelLogin: SubmitHandler<SignUpFormValue> = async (data) => {
         const result = await postRequest({ url: '/register', data });
-        setServerErrors({});
 
-        if (result.status == 'error') {
-            const errorFields = result.response;
-
-            Object.keys(errorFields).forEach((field) => {
-                setError(field as keyof SignUpFormValue, {
-                    type: "server",
-                    message: errorFields[field]
-                });
-            });
-            console.log(errorFields);
-            setServerErrors(errorFields);
-
-        } else {
-            console.log(result);
+        if (result.status == 'success') {
             localStorage.setItem("access_token", result.response.token);
-            navigate("/dashboard");
+            navigate("/home");
         }
 
     };
@@ -48,20 +31,6 @@ function SignUp() {
                 <div>
                     <img src="/assets/images/auth/sign-in.png" alt="sign-in" />
                 </div>
-
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                    transition={Bounce}
-                />
 
                 <Form
                     onSubmit={handleSubmit(handelLogin)}
@@ -83,7 +52,7 @@ function SignUp() {
                             type="text"
                             register={register}
                             placeholder="Your Name"
-                            error={errors.name?.message || serverErrors.name}
+                            error={errors.name?.message}
                             icon={<FaUser />}
 
                         />
@@ -93,7 +62,7 @@ function SignUp() {
                             type="text"
                             register={register}
                             placeholder="Email"
-                            error={errors.email?.message || serverErrors.email}
+                            error={errors.email?.message}
                             icon={<MdEmail />}
                         />
 
@@ -102,7 +71,7 @@ function SignUp() {
                             type="password"
                             register={register}
                             placeholder="Password"
-                            error={errors.password?.message || serverErrors.password}
+                            error={errors.password?.message}
                             icon={<FaLock />}
                         />
 
@@ -111,7 +80,7 @@ function SignUp() {
                             type="password"
                             register={register}
                             placeholder="Confirm Password"
-                            error={errors.password_confirmation?.message || serverErrors.password_confirmation}
+                            error={errors.password_confirmation?.message}
                             icon={<FiLock size={23} />}
                         />
                     </div>
