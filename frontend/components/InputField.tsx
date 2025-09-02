@@ -25,24 +25,21 @@ export function InputField({
     error = ''
 }: InputFieldProps) {
 
-    const defaultStyle = `border ${error ? "border-red-500" : "border-gray-300"} bg-[#e6e6e6] h-12 w-70 rounded-3xl pl-11 placeholder:font-semibold placeholder:text-[#999999]`
-
-
     return (
         <div className="relative">
             {icon && (
-                <span className="absolute text-xl text-gray-500 -translate-y-1/2 left-4 top-6">
+                <span className="absolute text-xl text-gray-500 -translate-y-1/2 left-3 top-5">
                     {icon}
                 </span>
             )}
-            <div className="flex flex-col w-[274px]">
+            <div className="flex flex-col">
                 <input
                     {...(register ? register(name) : {})}
                     type={type}
                     name={name}
                     value={value}
                     onChange={onChange}
-                    className={className ? defaultStyle + ` ${className}` : defaultStyle}
+                    className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg pl-11 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200` + ` ${className}`}
                     placeholder={placeholder}
                 />
                 {error && <span className="block w-full ml-4 text-red-500 break-words">

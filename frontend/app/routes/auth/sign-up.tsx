@@ -4,9 +4,12 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MdEmail } from "react-icons/md";
 import { FiLock } from "react-icons/fi";
+import { FaPhone } from "react-icons/fa6";
 import { schema, type SignUpFormValue } from '../../validations/auth/sign-up';
 import { postRequest } from "~/service/apiService";
 import { useNavigate } from "react-router-dom";
+import { SUCCESS } from "~/constants/apiStatus";
+import { ACCESS_TOKEN } from "~/constants/localStorage";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -16,11 +19,11 @@ function SignUp() {
     });
 
     const handelLogin: SubmitHandler<SignUpFormValue> = async (data) => {
-        const result = await postRequest({ url: '/register', data });
+        const result = await postRequest('/register', data);
 
-        if (result.status == 'success') {
-            localStorage.setItem("access_token", result.response.token);
-            navigate("/home");
+        if (result.status == SUCCESS) {
+            localStorage.setItem(ACCESS_TOKEN, result.response.token);
+            navigate("/dashboard");
         }
 
     };
@@ -28,25 +31,17 @@ function SignUp() {
     return (
         <main className="flex items-center justify-center min-h-screen">
             <div className="flex items-center gap-20">
-                <div>
-                    <img src="/assets/images/auth/sign-in.png" alt="sign-in" />
-                </div>
 
                 <Form
                     onSubmit={handleSubmit(handelLogin)}
-                    className="gap-10"
+                    className="w-[500px]"
                     buttonLabel="REGISTER"
-                    buttonClassName="bg-[#57b846] text-white h-12 w-70 rounded-3xl font-bold"
-                    buttonName="login"
+                    buttonName="register"
                     linkLabel="Have an account?"
-                    linkClassName="text-[14px] text-[#666666] hover:text-[#57b846] transition-colors duration-300"
                     linkTo="/sign-in"
+                    header="Member Registeration"
                 >
-                    <div className="flex flex-col items-center">
-                        <p className="text-2xl font-bold">Member Registeration</p>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <InputField
                             name="name"
                             type="text"
@@ -54,7 +49,15 @@ function SignUp() {
                             placeholder="Your Name"
                             error={errors.name?.message}
                             icon={<FaUser />}
+                        />
 
+                        <InputField
+                            name="phone_number"
+                            type="text"
+                            register={register}
+                            placeholder="+355"
+                            error={errors.phone_number?.message}
+                            icon={<FaPhone />}
                         />
 
                         <InputField
@@ -72,7 +75,7 @@ function SignUp() {
                             register={register}
                             placeholder="Password"
                             error={errors.password?.message}
-                            icon={<FaLock />}
+                            icon={<FaLock size={17}/>}
                         />
 
                         <InputField
@@ -81,7 +84,7 @@ function SignUp() {
                             register={register}
                             placeholder="Confirm Password"
                             error={errors.password_confirmation?.message}
-                            icon={<FiLock size={23} />}
+                            icon={<FiLock size={19} />}
                         />
                     </div>
                 </Form>

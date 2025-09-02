@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { schema, type SignInFormValues } from "../../validations/auth/sign-in";
 import { postRequest } from "../../service/apiService";
 import { useNavigate } from "react-router-dom";
+import { SUCCESS } from "~/constants/apiStatus";
+import { ACCESS_TOKEN } from "~/constants/localStorage";
 
 function SignIn() {
     const navigate = useNavigate();
@@ -15,37 +17,28 @@ function SignIn() {
     });
 
     const handelLogin: SubmitHandler<SignInFormValues> = async (data) => {
-        const result = await postRequest({ url: '/login', data });
+        const result = await postRequest('/login', data);
 
-        if (result.status == 'success') {
-            localStorage.setItem("access_token", result.response.token);
-            navigate("/home");
+        if (result.status == SUCCESS) {
+            localStorage.setItem(ACCESS_TOKEN, result.response.token);
+            navigate("/dashboard");
         }
-
     };
 
     return (
         <main className="flex items-center justify-center min-h-screen">
-            <div className="flex gap-20">
-                <div>
-                    <img src="/assets/images/auth/sign-in.png" alt="sign-in" />
-                </div>
-
+            <div>
                 <Form
                     onSubmit={handleSubmit(handelLogin)}
-                    className="gap-10"
+                    className="w-[500px]"
                     buttonLabel="LOGIN"
-                    buttonClassName="bg-[#57b846] text-white h-12 w-70 rounded-3xl font-bold"
                     buttonName="login"
                     linkLabel="Don’t have an account?"
-                    linkClassName="text-[14px] text-[#666666] hover:text-[#57b846] transition-colors duration-300"
                     linkTo="/sign-up"
+                    header="Member Login"
                 >
-                    <div className="flex flex-col items-center">
-                        <p className="text-2xl font-bold">Member Login</p>
-                    </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <InputField
                             name="email"
                             type="text"
@@ -53,8 +46,8 @@ function SignIn() {
                             placeholder="Email"
                             error={errors.email?.message}
                             icon={<MdEmail />}
+                            className="w-full"
                         />
-
                         <InputField
                             name="password"
                             type="password"
@@ -62,6 +55,7 @@ function SignIn() {
                             placeholder="Password"
                             error={errors.password?.message}
                             icon={<FaLock size={17.5} />}
+                            className="w-full"
                         />
                     </div>
                 </Form>
