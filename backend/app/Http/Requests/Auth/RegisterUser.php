@@ -25,7 +25,8 @@ class RegisterUser extends BaseRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'string', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required', 'min:8']
+            'password_confirmation' => ['required', 'min:8'],
+            'phone_number' => ['required', 'min:9']
         ];
     }
 }

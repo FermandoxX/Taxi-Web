@@ -49,7 +49,7 @@ class AuthService
     }
 
     public function register($request)
-    {
+    {   
         User::create($request->toArray());
 
         $user = User::firstWhere('email', $request->email);

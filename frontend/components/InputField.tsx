@@ -3,6 +3,7 @@ import type { ChangeEvent, JSX } from "react";
 
 interface InputFieldProps {
     icon?: JSX.Element;
+    iconClassName?: string;
     type?: string;
     name: string;
     value?: string;
@@ -15,6 +16,7 @@ interface InputFieldProps {
 
 export function InputField({
     icon,
+    iconClassName,
     type = "text",
     name,
     value,
@@ -26,13 +28,13 @@ export function InputField({
 }: InputFieldProps) {
 
     return (
-        <div className="relative">
-            {icon && (
-                <span className="absolute text-xl text-gray-500 -translate-y-1/2 left-3 top-5">
+            <div className="flex flex-col justify-center items-center relative">
+                {icon && (
+                <span className={`absolute text-xl text-gray-500 -translate-y-1/2 ${iconClassName ? iconClassName : "left-3 top-5"}`}>
                     {icon}
                 </span>
-            )}
-            <div className="flex flex-col">
+                )}
+
                 <input
                     {...(register ? register(name) : {})}
                     type={type}
@@ -42,10 +44,10 @@ export function InputField({
                     className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg pl-11 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200` + ` ${className}`}
                     placeholder={placeholder}
                 />
+
                 {error && <span className="block w-full ml-4 text-red-500 break-words">
                     {error}
                 </span>}
             </div>
-        </div>
     )
 }
