@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export function toastNotification(message: string,type: string = "success"){
-    
+
     switch(type){
         case "error":
             toast.error(message)
@@ -9,4 +9,8 @@ export function toastNotification(message: string,type: string = "success"){
         default:       
             toast.success(message)
     }
+}
+
+export function removeFromLocalStorage(elements: object = {}){
+    console.log(elements);
 }

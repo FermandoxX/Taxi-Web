@@ -49,6 +49,7 @@ function SignUp() {
                             placeholder="Your Name"
                             error={errors.name?.message}
                             icon={<FaUser />}
+                            className="w-full"
                         />
 
                         <InputField
@@ -58,6 +59,7 @@ function SignUp() {
                             placeholder="+355"
                             error={errors.phone_number?.message}
                             icon={<FaPhone />}
+                            className="w-full"
                         />
 
                         <InputField
@@ -67,6 +69,7 @@ function SignUp() {
                             placeholder="Email"
                             error={errors.email?.message}
                             icon={<MdEmail />}
+                            className="w-full"
                         />
 
                         <InputField
@@ -76,6 +79,7 @@ function SignUp() {
                             placeholder="Password"
                             error={errors.password?.message}
                             icon={<FaLock size={17}/>}
+                            className="w-full"
                         />
 
                         <InputField
@@ -85,6 +89,7 @@ function SignUp() {
                             placeholder="Confirm Password"
                             error={errors.password_confirmation?.message}
                             icon={<FiLock size={19} />}
+                            className="w-full"
                         />
                     </div>
                 </Form>
