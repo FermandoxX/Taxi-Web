@@ -101,15 +101,14 @@ function Layout() {
                                                 icon={<LuCircleUserRound size={21} className="text-gray-500"/>} 
                                                 label={"Edit Profile"}
                                                 url="/sign-in"
-                                                clearLocalService = {['test']}
                                             />
 
-                                            <ButtonMenuItem 
+                                            <LinkMenuItem 
                                                 icon={<CiLogout size={22}/>} 
                                                 label={"Log Out"}
+                                                url="/sign-in"
                                                 onClick={() => {
                                                     localStorage.removeItem(ACCESS_TOKEN);
-                                                    window.location.href = "/sign-in";
                                                 }}
                                             />
                                         </div>

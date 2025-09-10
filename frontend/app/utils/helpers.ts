@@ -10,7 +10,3 @@ export function toastNotification(message: string,type: string = "success"){
             toast.success(message)
     }
 }
-
-export function removeFromLocalStorage(elements: object = {}){
-    console.log(elements);
-}
