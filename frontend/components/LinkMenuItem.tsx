@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 interface LinkMenuItemProps {
-  icon: ReactNode;
+  icon?: ReactNode;
   label: string;
   url: string;
   onClick?: () => void;

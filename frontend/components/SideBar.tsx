@@ -1,4 +1,4 @@
-import { LinkMenuItem } from "components";
+import { GroupLinkMenuItem, LinkMenuItem } from "components";
 import type { MenuItemConfig } from "~/types";
 
 interface SideBarProps {
@@ -16,14 +16,22 @@ export function SideBar({ sideBarItems }: SideBarProps) {
         <span className="text-xs text-gray-400 font-medium">MENU</span>
 
         <div className="flex flex-col mt-5 gap-3">
-          {sideBarItems.map((item) => (
-            <LinkMenuItem
-              icon={item.icon}
-              label={item.label}
-              url={item.url}
-              onClick={item.onClick}
-            />
-          ))}
+          {sideBarItems.map((item) =>
+            item.childrens ? (
+              <GroupLinkMenuItem
+                icon={item.icon}
+                label={item.label}
+                childrens={item.childrens}
+              />
+            ) : (
+              <LinkMenuItem
+                icon={item.icon}
+                label={item.label}
+                url={item.url}
+                onClick={item.onClick}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

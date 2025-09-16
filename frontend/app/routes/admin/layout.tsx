@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "~/constants/localStorage";
 import { Header, LinkMenuItem } from "components";
 import { IoPersonSharp } from "react-icons/io5";
-import { BsFillPersonVcardFill } from "react-icons/bs";
+import { BsFillCarFrontFill, BsFillPersonVcardFill } from "react-icons/bs";
 import { FaMoneyBillTrendUp, FaPersonWalkingLuggage } from "react-icons/fa6";
 import { FaTaxi } from "react-icons/fa";
 import type { MenuItemConfig } from "~/types";
@@ -24,6 +24,8 @@ function Layout() {
     return <Navigate to="/sign-in" replace />;
   }
 
+  const children = {};
+
   const sideBarItems = [
     {
       icon: <IoPersonSharp size={21} className="text-gray-500" />,
@@ -36,9 +38,14 @@ function Layout() {
       url: "/sign-in",
     },
     {
+      icon: <BsFillCarFrontFill size={22} className="text-gray-500" />,
+      label: "Manage Car",
+      url: "/sign-in",
+    },
+    {
       icon: <BsFillPersonVcardFill size={21} className="text-gray-500" />,
       label: "Manage Drivers",
-      url: "/profile",
+      childrens: [{ label: "Check License" }, { label: "Manage Users" }],
     },
     {
       icon: <FaTaxi size={22} className="text-gray-500" />,
