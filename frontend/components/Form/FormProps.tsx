@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
 
+export interface Links {
+    linkLabel: string,
+    linkTo: string
+}
+
 export interface FormProps {
     onSubmit: React.FormEventHandler<HTMLFormElement>;
     children: ReactNode;
@@ -7,8 +12,7 @@ export interface FormProps {
     buttonLabel: string;
     buttonName: string;
     buttonClassName?: string;
-    linkLabel?: string;
-    linkTo?: string;
+    links?: Links[];
     linkClassName?: string;
     header?: string;
 }

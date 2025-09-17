@@ -4,7 +4,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MdEmail } from "react-icons/md";
 import { FiLock } from "react-icons/fi";
-import { FaPhone } from "react-icons/fa6";
+import { FaPhone, FaRegFileImage } from "react-icons/fa6";
 import { schema, type SignUpFormValue } from '../../validations/auth/sign-up';
 import { postRequest } from "~/service/apiService";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const links = [
     }
 ]
 
-function SignUp() {
+function Apply() {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormValue>({
@@ -97,6 +97,16 @@ function SignUp() {
                             icon={<FiLock size={19} />}
                             className="w-full"
                         />
+
+                        <InputField
+                            name="password_confirmation"
+                            type="file"
+                            register={register}
+                            placeholder="Confirm Password"
+                            error={errors.password_confirmation?.message}
+                            icon={<FaRegFileImage size={19} />}
+                            className="w-full"
+                        />
                     </div>
                 </Form>
             </div>
@@ -104,4 +114,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
+export default Apply

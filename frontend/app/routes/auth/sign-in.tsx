@@ -9,6 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { SUCCESS } from "~/constants/apiStatus";
 import { ACCESS_TOKEN } from "~/constants/localStorage";
 
+const links = [
+    {
+        linkLabel: "Don’t have an account?",
+        linkTo: "/sign-up"
+    },
+    {
+        linkLabel: "Do you want to join us?",
+        linkTo: "/apply"
+    }
+]
 function SignIn() {
     const navigate = useNavigate();
 
@@ -33,8 +43,7 @@ function SignIn() {
                     className="w-[500px]"
                     buttonLabel="LOGIN"
                     buttonName="login"
-                    linkLabel="Don’t have an account?"
-                    linkTo="/sign-up"
+                    links={links}
                     header="Member Login"
                 >
 
