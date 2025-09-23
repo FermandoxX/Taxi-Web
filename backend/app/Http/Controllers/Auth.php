@@ -24,4 +24,11 @@ class Auth extends Controller
 
         return $this->sendResponse($response);
     }
+
+    public function apply(RegisterUser $request, AuthService $service)
+    {
+        $response = $service->apply($request);
+
+        return $this->sendResponse($response);
+    }
 }

@@ -6,9 +6,11 @@ use App\Constants\ApiHttpStatus;
 use App\Models\User;
 use App\Constants\ApiStatus;
 use App\Http\Resources\UserResource;
+use App\Models\DriverDocuments;
 use App\Traits\ApiRespones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Zxing\QrReader;
 
 class AuthService
 {
@@ -70,6 +72,26 @@ class AuthService
                 'token' => $token,
                 'user' => new UserResource($user->only('id', 'email'))
             ]
+        );
+    }
+
+    public function apply($request)
+    {   
+        $userData = $request->except("driver_licence");
+        $driverLicense = $request->direver_license;
+        $driverLicenseFilename = time() . '_' . uniqid() . '.' . $driverLicense->getClientOriginalExtension();
+        $path = $driverLicense->storeAs('driver_license', $driverLicenseFilename, 'public');
+
+        $user = User::create($userData);
+        $user->assignRole('driver');
+
+        $driverId = User::firstWhere('email', $request->email)->id;
+        DriverDocuments::create(['rider_id'=>$driverId,'direver_license'=>$path]);
+        
+        return $this->makeResponse(
+            ApiStatus::SUCCESS->value,
+            'Apply successful',
+            []
         );
     }
 }
