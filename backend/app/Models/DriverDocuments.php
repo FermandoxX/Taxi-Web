@@ -8,6 +8,6 @@ class DriverDocuments extends Model
 {
     protected $fillable = [
         'direver_license',
-        'rider_id'
+        'user_id'
     ];
 }

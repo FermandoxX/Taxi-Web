@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('driver_documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rider_id');
+            $table->foreignId('user_id');
             $table->text('direver_license');
             $table->boolean('on_job')->default(false);
             $table->timestamps();

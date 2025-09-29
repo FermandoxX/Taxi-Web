@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Pagination\AbstractPaginator;
-
 trait ApiRespones {
 
     protected $response = [];
@@ -13,7 +11,7 @@ trait ApiRespones {
         return [
             'status' => $status,
             'message' => $message,
-            'data' => $data,
+            'response' => $data,
             'statusCode' => $statusCode,
         ];
     }
@@ -23,7 +21,7 @@ trait ApiRespones {
         $this->response = [
             'status' => $response['status'],
             'message' => $response['message'],
-            'response' => $response['data'],
+            'response' => $response['response'],
             'statusCode' => $response['statusCode']
         ];
 

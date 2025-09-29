@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\ApplyUser;
 use App\Http\Requests\Auth\LoginUser;
 use App\Http\Requests\Auth\RegisterUser;
 use App\Http\Services\AuthService;
@@ -25,7 +26,7 @@ class Auth extends Controller
         return $this->sendResponse($response);
     }
 
-    public function apply(RegisterUser $request, AuthService $service)
+    public function apply(ApplyUser $request, AuthService $service)
     {
         $response = $service->apply($request);
 

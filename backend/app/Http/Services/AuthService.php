@@ -10,7 +10,6 @@ use App\Models\DriverDocuments;
 use App\Traits\ApiRespones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Zxing\QrReader;
 
 class AuthService
 {
@@ -31,6 +30,20 @@ class AuthService
         }
 
         $user = User::firstWhere('email', $request->email);
+
+        if($user->driver_documents){
+            if(!$user->driver_documents->on_job){
+                return $this->makeResponse(
+                    ApiStatus::ERROR->value,
+                    'Invalid credentials',
+                    [
+                        'email' => 'Invalid email',
+                        'password' => 'Invalid password'
+                    ],
+                    ApiHttpStatus::UNPROCESSABLE_CONTENT->value
+                );
+            }
+        }
 
         $token = $user->createToken(
             'Api token for ' . $user->email,
@@ -78,15 +91,15 @@ class AuthService
     public function apply($request)
     {   
         $userData = $request->except("driver_licence");
-        $driverLicense = $request->direver_license;
+        $driverLicense = $request->file('driver_license');
         $driverLicenseFilename = time() . '_' . uniqid() . '.' . $driverLicense->getClientOriginalExtension();
         $path = $driverLicense->storeAs('driver_license', $driverLicenseFilename, 'public');
-
+        
         $user = User::create($userData);
         $user->assignRole('driver');
 
         $driverId = User::firstWhere('email', $request->email)->id;
-        DriverDocuments::create(['rider_id'=>$driverId,'direver_license'=>$path]);
+        DriverDocuments::create(['user_id'=>$driverId,'direver_license'=>$path]);
         
         return $this->makeResponse(
             ApiStatus::SUCCESS->value,

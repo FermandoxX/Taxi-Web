@@ -6,33 +6,35 @@ import { Header, SideBar } from "components";
 import { sideBarItems } from "~/constants/sideBar";
 
 function Layout() {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    const [accessDenied, setAccessDenied] = useState(false);
+  const token = localStorage.getItem(ACCESS_TOKEN);
+  const [accessDenied, setAccessDenied] = useState(false);
 
-    useEffect(() => {
-        if (!token) {
-            setAccessDenied(true);
-        }
-    }, [token]);
-
-    if (accessDenied) {
-        return <Navigate to="/sign-in" replace />;
+  useEffect(() => {
+    if (!token) {
+      setAccessDenied(true);
     }
+  }, [token]);
 
-    return (
-        <main className="h-screen">
-            <div className="flex h-full">
-                <SideBar sideBarItems={sideBarItems} />
+  if (accessDenied) {
+    return <Navigate to="/sign-in" replace />;
+  }
 
-                <div className="flex flex-col w-full">
-                    <Header />
-                    <div className="bg-[#f9fafb] w-full h-full">
-                        <Outlet />
-                    </div>
-                </div>
+  return (
+    <main className="h-screen">
+      <div className="flex h-full">
+        <SideBar sideBarItems={sideBarItems} />
+
+        <div className="flex flex-col w-full">
+          <Header />
+          <div className="bg-[#f9fafb] w-full h-full p-[3%] overflow-auto">
+            <div className="min-w-0 min-h-0 border border-gray-200 rounded-2xl bg-white">
+              <Outlet />
             </div>
-        </main>
-    );
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export default Layout;

@@ -33,6 +33,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
+        'created_at',
+        'updated_at',
         'password',
         'remember_token',
     ];
@@ -48,5 +50,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function driver_documents(){
+        return $this->hasOne(DriverDocuments::class);
     }
 }

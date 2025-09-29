@@ -52,7 +52,7 @@ export function InputField({
         </label>
       ) : (
         <input
-          {...(register ? register(name) : {})}
+          {...(register && register(name))}
           type={type}
           name={name}
           value={value}

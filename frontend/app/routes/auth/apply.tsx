@@ -34,10 +34,7 @@ function Apply() {
     formData.append("password_confirmation", data.password_confirmation);
 
     if (data.driver_license && data.driver_license.length > 0) {
-      formData.append("driver_license", data.driver_license); // 👈 attach file
-    }
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+      formData.append("driver_license", data.driver_license[0]);
     }
 
     await postRequest("/apply", formData);
