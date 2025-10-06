@@ -7,6 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { Menu, MenuButton } from "@headlessui/react";
 import { menuItems } from "~/constants/profileDropDown";
 import LocalStorageService from "~/service/localStorageService";
+import { UserAvatar } from "components/UserAvatar";
 
 export function Header() {
   const dropDownHeader = (
@@ -50,10 +51,7 @@ export function Header() {
         />
 
         <div className="flex items-center gap-2">
-          <img
-            src="../../public/assets/images/profile/profile_pic.png"
-            className="object-cover w-12 h-12 border border-gray-200 rounded-full"
-          ></img>
+          <UserAvatar src="../../public/assets/images/profile/profile_pic.png" />
           <Menu>
             <MenuButton className="flex items-center gap-2 text-sm font-medium border-none outline-none cursor-pointer focus:outline-none">
               {LocalStorageService.get("user_data", "name")}

@@ -19,7 +19,9 @@ class UserController extends Controller
     public function index()
     {
         $user = auth('sanctum')->user();
-
+        $user->role = $user->roles[0]->name;
+        unset($user->roles);  
+        // dd($user->roles->pluck('name')[0]);
         $response = $this->makeResponse(
                 ApiStatus::SUCCESS->value,
                 'User Data',

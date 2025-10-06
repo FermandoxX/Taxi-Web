@@ -1,5 +1,5 @@
 import type { InputFieldProps } from "./InputFieldProps";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function InputField({
   icon,
@@ -47,7 +47,6 @@ export function InputField({
             accept="image/*"
             name={name}
             className="hidden"
-            // onChange={handleFileChange}
           />
         </label>
       ) : (
@@ -57,7 +56,7 @@ export function InputField({
           name={name}
           value={value}
           onChange={onChange}
-          className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg pl-11 placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
+          className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg ${icon ? "pl-11" : "pl-5"} placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
           placeholder={placeholder}
         />
       )}
@@ -69,4 +68,7 @@ export function InputField({
       )}
     </div>
   );
+}
+function setValue(name: string, value: string) {
+  throw new Error("Function not implemented.");
 }
