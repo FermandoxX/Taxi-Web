@@ -6,7 +6,6 @@ export function InputField({
   iconClassName,
   type = "text",
   name,
-  value,
   placeholder,
   onChange,
   className,
@@ -54,7 +53,6 @@ export function InputField({
           {...(register && register(name))}
           type={type}
           name={name}
-          value={value}
           onChange={onChange}
           className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg ${icon ? "pl-11" : "pl-5"} placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
           placeholder={placeholder}

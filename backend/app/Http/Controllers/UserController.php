@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Traits\ApiRespones;
 use App\Constants\ApiStatus;
 use App\Constants\ApiHttpStatus;
+use App\Http\Requests\User\AdminProfileRequest;
+use App\Http\Services\UserService;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
         $user = auth('sanctum')->user();
         $user->role = $user->roles[0]->name;
         unset($user->roles);  
-        // dd($user->roles->pluck('name')[0]);
+
         $response = $this->makeResponse(
                 ApiStatus::SUCCESS->value,
                 'User Data',
@@ -51,9 +53,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(AdminProfileRequest $request, UserService $user)
     {
-        //
+        $response = $user->update($request);
+
+        return $this->sendResponse($response);
     }
 
     /**

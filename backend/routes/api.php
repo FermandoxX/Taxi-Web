@@ -12,4 +12,6 @@ Route::post('/apply', [Auth::class, 'apply']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/home', [HomeController::class, 'index']);
     Route::get('/user',[UserController::class,'index']);
+    Route::post('/userUpdate',[UserController::class,'update']);
+
 });

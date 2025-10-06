@@ -10,7 +10,7 @@ export const schema = z
       .min(7, "Password must be at least 7 characters"),
     phone_number: z
       .string()
-      .min(9, "Phone number need to ahve more then 9 digits"),
+      .min(9, "Phone number need to have more then 9 digits"),
   })
   .refine((data) => data.password === data.password_confirmation, {
     message: "Passwords do not match",

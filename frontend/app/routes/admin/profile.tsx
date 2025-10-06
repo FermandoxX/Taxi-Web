@@ -3,10 +3,30 @@ import { UserAvatar } from "components/UserAvatar";
 import LocalStorageService from "~/service/localStorageService";
 import { GoPencil } from "react-icons/go";
 import { useState } from "react";
-import { Modal } from "components/Modal/Modal";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { Modal } from "components/Modal";
+import { schema, type ProfileValues } from "../../validations/admin/profile";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function Profile() {
   let [isOpen, setIsOpen] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProfileValues>({
+    defaultValues: {
+      name: LocalStorageService.get("user_data", "name"),
+      email: LocalStorageService.get("user_data", "email"),
+      phone_number: LocalStorageService.get("user_data", "phone_number"),
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const updateProfile: SubmitHandler<ProfileValues> = async (data) => {
+    console.log("okey");
+  };
 
   return (
     <div className="flex flex-col gap-10">
@@ -34,6 +54,7 @@ function Profile() {
             className="rounded-4xl font-medium text-sm pl-5 pr-5"
             icon={<GoPencil />}
             label="Edit"
+            onClick={() => setIsOpen(true)}
           />
         </div>
 
@@ -84,7 +105,7 @@ function Profile() {
 
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
               <Form
-                // onSubmit={handleSubmit(handelLogin)}
+                onSubmit={handleSubmit(updateProfile)}
                 className="w-[500px]"
                 buttonLabel="Save Changes"
                 buttonName="update"
@@ -92,35 +113,29 @@ function Profile() {
               >
                 <div className="flex flex-col gap-4">
                   <InputField
-                    name="full name"
+                    name="name"
                     type="text"
-                    // register={register}
+                    register={register}
                     placeholder="Full Name"
-                    // error={errors.email?.message}
-                    // icon={<MdEmail />}
-                    value={LocalStorageService.get("user_data", "name")}
+                    error={errors.name?.message}
                     className="w-full"
                   />
 
                   <InputField
                     name="email"
                     type="text"
-                    // register={register}
+                    register={register}
                     placeholder="Email"
-                    // error={errors.password?.message}
-                    // icon={<FaLock size={17.5} />}
-                    value={LocalStorageService.get("user_data", "email")}
+                    error={errors.email?.message}
                     className="w-full"
                   />
 
                   <InputField
-                    name="phone"
+                    name="phone_number"
                     type="text"
-                    // register={register}
+                    register={register}
                     placeholder="Phone"
-                    // error={errors.email?.message}
-                    // icon={<MdEmail />}
-                    value={LocalStorageService.get("user_data", "phone_number")}
+                    error={errors.phone_number?.message}
                     className="w-full"
                   />
                 </div>
