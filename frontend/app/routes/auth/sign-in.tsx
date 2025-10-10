@@ -48,7 +48,7 @@ function SignIn() {
       <div>
         <Form
           onSubmit={handleSubmit(handelLogin)}
-          className="w-[500px]"
+          className="w-[500px] flex flex-col bg-white p-5 border border-gray-200 rounded-xl gap-10"
           buttonLabel="LOGIN"
           buttonName="login"
           links={links}
@@ -63,6 +63,7 @@ function SignIn() {
               error={errors.email?.message}
               icon={<MdEmail />}
               className="w-full"
+              label="Email"
             />
             <InputField
               name="password"
@@ -72,6 +73,7 @@ function SignIn() {
               error={errors.password?.message}
               icon={<FaLock size={17.5} />}
               className="w-full"
+              label="Password"
             />
           </div>
         </Form>

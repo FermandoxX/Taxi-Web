@@ -16,7 +16,8 @@ export function Form({
     <form
       encType="multipart/form-data"
       onSubmit={onSubmit}
-      className={`flex flex-col bg-white p-5 border border-gray-200 rounded-xl gap-10 ${className}`}
+      // className={`flex flex-col bg-white p-5 border border-gray-200 rounded-xl gap-10 ${className}`}
+      className={className}
     >
       <div className="text-base font-medium text-gray-80">{header}</div>
       {children}

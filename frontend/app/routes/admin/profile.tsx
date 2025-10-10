@@ -4,7 +4,7 @@ import LocalStorageService from "~/service/localStorageService";
 import { GoPencil } from "react-icons/go";
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Modal } from "components/Modal";
+import { FormModal } from "components/FormModal";
 import { schema, type ProfileValues } from "../../validations/admin/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -103,44 +103,49 @@ function Profile() {
               onClick={() => setIsOpen(true)}
             />
 
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <FormModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
               <Form
                 onSubmit={handleSubmit(updateProfile)}
-                className="w-[500px]"
                 buttonLabel="Save Changes"
                 buttonName="update"
-                header="Edit Personal Information"
+                className="flex flex-col gap-5"
               >
                 <div className="flex flex-col gap-4">
-                  <InputField
-                    name="name"
-                    type="text"
-                    register={register}
-                    placeholder="Full Name"
-                    error={errors.name?.message}
-                    className="w-full"
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <InputField
+                      name="name"
+                      type="text"
+                      register={register}
+                      placeholder="Full Name"
+                      error={errors.name?.message}
+                      className="w-full"
+                      label="Name"
+                    />
+                    <InputField
+                      name="email"
+                      type="text"
+                      register={register}
+                      placeholder="Email"
+                      error={errors.email?.message}
+                      className="w-full"
+                      label="Email"
+                    />
+                  </div>
 
-                  <InputField
-                    name="email"
-                    type="text"
-                    register={register}
-                    placeholder="Email"
-                    error={errors.email?.message}
-                    className="w-full"
-                  />
-
-                  <InputField
-                    name="phone_number"
-                    type="text"
-                    register={register}
-                    placeholder="Phone"
-                    error={errors.phone_number?.message}
-                    className="w-full"
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <InputField
+                      name="phone_number"
+                      type="text"
+                      register={register}
+                      placeholder="Phone Number"
+                      error={errors.name?.message}
+                      className="w-full"
+                      label="Phone Number"
+                    />
+                  </div>
                 </div>
               </Form>
-            </Modal>
+            </FormModal>
           </div>
         </div>
       </div>

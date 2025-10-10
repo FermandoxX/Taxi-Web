@@ -47,7 +47,7 @@ function SignUp() {
       <div className="flex items-center gap-20">
         <Form
           onSubmit={handleSubmit(handelLogin)}
-          className="w-[500px]"
+          className="w-[500px] flex flex-col bg-white p-5 border border-gray-200 rounded-xl gap-10"
           buttonLabel="REGISTER"
           buttonName="register"
           links={links}
@@ -62,6 +62,7 @@ function SignUp() {
               error={errors.name?.message}
               icon={<FaUser />}
               className="w-full"
+              label="Name"
             />
 
             <InputField
@@ -72,6 +73,7 @@ function SignUp() {
               error={errors.phone_number?.message}
               icon={<FaPhone />}
               className="w-full"
+              label="Phone Number"
             />
 
             <InputField
@@ -82,6 +84,7 @@ function SignUp() {
               error={errors.email?.message}
               icon={<MdEmail />}
               className="w-full"
+              label="Email"
             />
 
             <InputField
@@ -92,6 +95,7 @@ function SignUp() {
               error={errors.password?.message}
               icon={<FaLock size={17} />}
               className="w-full"
+              label="Password"
             />
 
             <InputField
@@ -102,6 +106,7 @@ function SignUp() {
               error={errors.password_confirmation?.message}
               icon={<FiLock size={19} />}
               className="w-full"
+              label="Confirm Password"
             />
           </div>
         </Form>

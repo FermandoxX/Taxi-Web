@@ -11,6 +11,7 @@ export function InputField({
   className,
   register,
   error = "",
+  label,
 }: InputFieldProps) {
   const [fileName, setFileName] = useState<string>("");
 
@@ -25,7 +26,7 @@ export function InputField({
     <div className="relative flex flex-col items-center justify-center w-full">
       {icon && (
         <span
-          className={`absolute text-xl text-gray-500 -translate-y-1/2 ${iconClassName ? iconClassName : "left-3 top-5"}`}
+          className={`absolute text-xl text-gray-500 -translate-y-1/2 ${iconClassName ? iconClassName : "left-3 top-11"}`}
         >
           {icon}
         </span>
@@ -49,14 +50,17 @@ export function InputField({
           />
         </label>
       ) : (
-        <input
-          {...(register && register(name))}
-          type={type}
-          name={name}
-          onChange={onChange}
-          className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg ${icon ? "pl-11" : "pl-5"} placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
-          placeholder={placeholder}
-        />
+        <div className="w-full">
+          <label className="text-sm font-medium text-gray-700">{label}</label>
+          <input
+            {...(register && register(name))}
+            type={type}
+            name={name}
+            onChange={onChange}
+            className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg ${icon ? "pl-11" : "pl-5"} placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
+            placeholder={placeholder}
+          />
+        </div>
       )}
 
       {error && (

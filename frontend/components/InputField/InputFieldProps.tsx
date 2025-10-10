@@ -12,4 +12,5 @@ export interface InputFieldProps {
   className?: string;
   register?: UseFormRegister<any>;
   error?: any;
+  label?: string;
 }

@@ -45,7 +45,7 @@ function Apply() {
       <div className="flex items-center gap-20">
         <Form
           onSubmit={handleSubmit(handelLogin)}
-          className="w-[500px]"
+          className="w-[500px] flex flex-col bg-white p-5 border border-gray-200 rounded-xl gap-10"
           buttonLabel="REGISTER"
           buttonName="register"
           links={links}
@@ -60,6 +60,7 @@ function Apply() {
               error={errors.name?.message}
               icon={<FaUser />}
               className="w-full"
+              label="Name"
             />
 
             <InputField
@@ -70,6 +71,7 @@ function Apply() {
               error={errors.phone_number?.message}
               icon={<FaPhone />}
               className="w-full"
+              label="Phone Number"
             />
 
             <InputField
@@ -80,6 +82,7 @@ function Apply() {
               error={errors.email?.message}
               icon={<MdEmail />}
               className="w-full"
+              label="Email"
             />
 
             <InputField
@@ -90,6 +93,7 @@ function Apply() {
               error={errors.password?.message}
               icon={<FaLock size={17} />}
               className="w-full"
+              label="Password"
             />
 
             <InputField
@@ -100,6 +104,7 @@ function Apply() {
               error={errors.password_confirmation?.message}
               icon={<FiLock size={19} />}
               className="w-full"
+              label="Password Confirmation"
             />
 
             <InputField
@@ -110,6 +115,7 @@ function Apply() {
               error={errors.driver_license?.message}
               icon={<FaRegFileImage size={19} />}
               className="w-full"
+              iconClassName="left-3 top-5"
             />
           </div>
         </Form>
