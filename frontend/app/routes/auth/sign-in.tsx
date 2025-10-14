@@ -20,7 +20,10 @@ const links = [
     linkTo: "/apply",
   },
 ];
+
 function SignIn() {
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
   const navigate = useNavigate();
 
   const {
@@ -43,6 +46,10 @@ function SignIn() {
     }
   };
 
+  if (token) {
+    return navigate("/dashboard");
+  }
+
   return (
     <main className="flex items-center justify-center min-h-screen">
       <div>
@@ -54,7 +61,7 @@ function SignIn() {
           links={links}
           header="Member Login"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
             <InputField
               name="email"
               type="text"

@@ -1,5 +1,4 @@
 import type { InputFieldProps } from "./InputFieldProps";
-import { useEffect, useState } from "react";
 
 export function InputField({
   icon,
@@ -12,16 +11,8 @@ export function InputField({
   register,
   error = "",
   label,
+  showError = true,
 }: InputFieldProps) {
-  const [fileName, setFileName] = useState<string>("");
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFileName(e.target.files[0].name);
-    }
-    onChange && onChange(e);
-  };
-
   return (
     <div className="relative flex flex-col items-center justify-center w-full">
       {icon && (
@@ -38,7 +29,7 @@ export function InputField({
           className={`flex items-center justify-center border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg px-4 text-gray-700 cursor-pointer hover:border-blue-400 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-200 ${className}`}
         >
           <span className="text-gray-400 text-sm font-medium">
-            {fileName || placeholder || "Choose file"}
+            {placeholder || "Choose file"}
           </span>
           <input
             {...(register ? register(name) : {})}
@@ -63,14 +54,15 @@ export function InputField({
         </div>
       )}
 
-      {error && (
-        <span className="block w-full ml-4 text-red-500 break-words">
-          {error}
-        </span>
+      {showError && (
+        <div className="min-h-[20px] w-full ml-4">
+          {error && (
+            <span className="block text-red-500 text-sm break-words">
+              {error}
+            </span>
+          )}
+        </div>
       )}
     </div>
   );
-}
-function setValue(name: string, value: string) {
-  throw new Error("Function not implemented.");
 }

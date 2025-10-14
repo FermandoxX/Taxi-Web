@@ -12,6 +12,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class BaseRequest extends FormRequest
 {
     use ApiRespones;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -34,19 +35,14 @@ class BaseRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors();
-        $allErrors = [];
+        $error = $validator->errors();
 
-        foreach ($errors->keys() as $field) {
-            $fieldError = $errors->first($field);
-
-            $allErrors[$field] = $fieldError;
-        }
-
+        $fieldError = $error->first();
+    
         $response = $this->makeResponse(
             ApiStatus::ERROR->value,
             'Some fields are incomplete or incorrect.',
-            $allErrors,
+            [$fieldError],
             ApiHttpStatus::UNPROCESSABLE_CONTENT->value
         );
 

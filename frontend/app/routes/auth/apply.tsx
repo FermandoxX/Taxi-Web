@@ -51,7 +51,7 @@ function Apply() {
           links={links}
           header="Member Registeration"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
             <InputField
               name="name"
               type="text"

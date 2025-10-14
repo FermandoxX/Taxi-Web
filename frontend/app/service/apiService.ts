@@ -9,7 +9,9 @@ export async function postRequest(url: string, data: object) {
     return response.data;
   } catch (e: any) {
     const errorData = e.response?.data || { message: "Unexpected error" };
-    toastNotification(errorData.message, "error");
+    const errorMessage = errorData?.response?.[0] ?? errorData.message;
+
+    toastNotification(errorMessage, "error");
     return errorData;
   }
 }

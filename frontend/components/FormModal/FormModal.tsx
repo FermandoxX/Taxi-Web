@@ -1,3 +1,4 @@
+import { Form } from "components/Form";
 import type { FormModalProps } from "./FormModalProps";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
@@ -5,6 +6,8 @@ export function FormModal({
   isOpen = false,
   onClose,
   children,
+  onSubmit,
+  header,
 }: FormModalProps) {
   return (
     <Dialog open={isOpen} as="div" onClose={onClose}>
@@ -14,8 +17,14 @@ export function FormModal({
             transition
             className="w-[700px] h-full rounded-xl p-6 duration-300 ease-out data-closed:opacity-0 flex flex-col bg-white border border-gray-200"
           >
-            <DialogTitle className="font-bold">Deactivate account</DialogTitle>
-            <div>{children}</div>
+            <DialogTitle className="font-bold">{header}</DialogTitle>
+            <Form
+              onSubmit={onSubmit}
+              buttonLabel="Save Changes"
+              buttonName="update"
+              className="flex flex-col gap-5"
+              children={children}
+            ></Form>
           </DialogPanel>
         </div>
       </div>

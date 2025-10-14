@@ -30,12 +30,13 @@ export function Header() {
         />
 
         <InputField
-          name="email"
+          name="search"
           type="text"
           placeholder="Search or type command..."
           icon={<CiSearch size={23} />}
           className="w-full"
           iconClassName="left-3 top-5.5"
+          showError={false}
         />
       </div>
 

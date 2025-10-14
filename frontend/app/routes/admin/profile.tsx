@@ -7,8 +7,12 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { FormModal } from "components/FormModal";
 import { schema, type ProfileValues } from "../../validations/admin/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { postRequest } from "~/service/apiService";
+import { SUCCESS } from "~/constants/apiStatus";
+import { useNavigate } from "react-router";
 
 function Profile() {
+  const navigate = useNavigate();
   let [isOpen, setIsOpen] = useState(false);
 
   const {
@@ -25,7 +29,13 @@ function Profile() {
   });
 
   const updateProfile: SubmitHandler<ProfileValues> = async (data) => {
-    console.log("okey");
+    const result = await postRequest("/userUpdate", data);
+
+    if (result.status === SUCCESS) {
+      LocalStorageService.clear();
+
+      navigate("/sign-in");
+    }
   };
 
   return (
@@ -103,48 +113,78 @@ function Profile() {
               onClick={() => setIsOpen(true)}
             />
 
-            <FormModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <Form
-                onSubmit={handleSubmit(updateProfile)}
-                buttonLabel="Save Changes"
-                buttonName="update"
-                className="flex flex-col gap-5"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <InputField
-                      name="name"
-                      type="text"
-                      register={register}
-                      placeholder="Full Name"
-                      error={errors.name?.message}
-                      className="w-full"
-                      label="Name"
-                    />
-                    <InputField
-                      name="email"
-                      type="text"
-                      register={register}
-                      placeholder="Email"
-                      error={errors.email?.message}
-                      className="w-full"
-                      label="Email"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <InputField
-                      name="phone_number"
-                      type="text"
-                      register={register}
-                      placeholder="Phone Number"
-                      error={errors.name?.message}
-                      className="w-full"
-                      label="Phone Number"
-                    />
-                  </div>
+            <FormModal
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              onSubmit={handleSubmit(updateProfile)}
+              header="User Profile Update"
+            >
+              <div className="flex flex-col">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <InputField
+                    name="name"
+                    type="text"
+                    register={register}
+                    placeholder="Full Name"
+                    error={errors.name?.message}
+                    className="w-full"
+                    label="Name"
+                  />
+                  <InputField
+                    name="email"
+                    type="text"
+                    register={register}
+                    placeholder="Email"
+                    error={errors.email?.message}
+                    className="w-full"
+                    label="Email"
+                  />
                 </div>
-              </Form>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <InputField
+                    name="phone_number"
+                    type="text"
+                    register={register}
+                    placeholder="Phone Number"
+                    error={errors.phone_number?.message}
+                    className="w-full"
+                    label="Phone Number"
+                  />
+
+                  <InputField
+                    name="old_password"
+                    type="password"
+                    register={register}
+                    placeholder="Old Password"
+                    error={errors.old_password?.message}
+                    className="w-full"
+                    label="Old Password"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <InputField
+                    name="new_password"
+                    type="password"
+                    register={register}
+                    placeholder="New Password"
+                    error={errors.new_password?.message}
+                    className="w-full"
+                    label="New Password"
+                  />
+
+                  <InputField
+                    name="new_password_confirmation"
+                    type="password"
+                    register={register}
+                    placeholder="Password Confirmation"
+                    error={errors.new_password_confirmation?.message}
+                    className="w-full"
+                    label="Password Confirmation"
+                  />
+                </div>
+              </div>
             </FormModal>
           </div>
         </div>

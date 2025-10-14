@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class AdminProfileRequest extends BaseRequest
 {
@@ -23,8 +24,19 @@ class AdminProfileRequest extends BaseRequest
     {
         return [
             'name'=>['required','string','min:3'],
-            'email'=>['required', 'email', 'string', 'unique:users'],
-            'phone_number'=>['required', 'min:9']
+            'email'=>['required', 'email', 'string',Rule::unique('users')->ignore(auth()->id())],
+            'phone_number'=>['required', 'min:9'],
+            'old_password'=>['required','current_password'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+            'new_password_confirmation' => ['required', 'min:8'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'old_password.current_password' => 'Your old password is wrong',
+            'old_password.required' => 'Your old password is required'
         ];
     }
 }

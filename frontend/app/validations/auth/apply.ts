@@ -7,7 +7,7 @@ export const schema = z
     password: z.string().min(7, "Password must be at least 7 characters"),
     password_confirmation: z
       .string()
-      .min(7, "Password must be at least 7 characters"),
+      .min(7, "Password Confirmation must be at least 7 characters"),
     phone_number: z
       .string()
       .min(9, "Phone number need to have more then 9 digits"),

@@ -21,10 +21,7 @@ class AuthService
             return $this->makeResponse(
                 ApiStatus::ERROR->value,
                 'Invalid credentials',
-                [
-                    'email' => 'Invalid email',
-                    'password' => 'Invalid password'
-                ],
+                [],
                 ApiHttpStatus::UNPROCESSABLE_CONTENT->value
             );
         }
@@ -36,10 +33,7 @@ class AuthService
                 return $this->makeResponse(
                     ApiStatus::ERROR->value,
                     'Invalid credentials',
-                    [
-                        'email' => 'Invalid email',
-                        'password' => 'Invalid password'
-                    ],
+                    [],
                     ApiHttpStatus::UNPROCESSABLE_CONTENT->value
                 );
             }
