@@ -27,7 +27,7 @@ function Layout() {
         <div className="flex flex-col w-full">
           <Header />
           <div className="bg-[#f9fafb] w-[97%] h-full p-[3%] overflow-auto">
-            <div className="min-w-0 min-h-0 border border-gray-200 rounded-2xl bg-white p-5">
+            <div className="min-w-0 min-h-0 p-5 bg-white border border-gray-200 rounded-2xl">
               <Outlet />
             </div>
           </div>

@@ -8,7 +8,7 @@ export const sideBarItems = [
     {
         icon: <IoPersonSharp size={21} className="text-gray-500" />,
         label: "Manage Admins",
-        url: "/sign-in",
+        url: "/admins",
     },
     {
         icon: <FaPersonWalkingLuggage size={22} className="text-gray-500" />,
