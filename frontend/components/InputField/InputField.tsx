@@ -48,7 +48,7 @@ export function InputField({
             type={type}
             name={name}
             onChange={onChange}
-            className={`border ${error ? "border-red-500" : "border-gray-300"} h-10 rounded-lg ${icon ? "pl-11" : "pl-5"} placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
+            className={`border ${error ? "border-red-500" : "border-gray-300"} ${icon ? "pl-11" : "pl-5"} h-10 rounded-lg placeholder-gray-400 placeholder:text-sm placeholder:font-medium outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 ${className}`}
             placeholder={placeholder}
           />
         </div>
