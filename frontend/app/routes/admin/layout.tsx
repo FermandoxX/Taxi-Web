@@ -9,15 +9,15 @@ function Layout() {
   const token = localStorage.getItem(ACCESS_TOKEN);
   const [accessDenied, setAccessDenied] = useState(false);
 
-  useEffect(() => {
-    if (!token) {
-      setAccessDenied(true);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     setAccessDenied(true);
+  //   }
+  // }, [token]);
 
-  if (accessDenied) {
-    return <Navigate to="/sign-in" replace />;
-  }
+  // if (accessDenied) {
+  //   return <Navigate to="/sign-in" replace />;
+  // }
 
   return (
     <main className="h-screen">

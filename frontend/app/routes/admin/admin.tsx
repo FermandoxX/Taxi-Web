@@ -3,15 +3,14 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   useReactTable,
-  type ColumnFilter,
   type ColumnFiltersState,
+  type Row,
 } from "@tanstack/react-table";
 import { Search } from "components";
 import { UserAvatar } from "components/UserAvatar";
 import { useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { id } from "zod/v4/locales";
 
 const userData = [
   {
@@ -128,16 +127,34 @@ const columns = [
   },
 ];
 
-function Admins() {
+const multiColumnFilter = (
+  row: Row<any>,
+  columnId: string,
+  filterValue: string
+): boolean => {
+  const name = row.getValue("name") as string;
+  const phone = row.getValue("phone_number") as string;
+  const email = row.getValue("email") as string;
+
+  return (
+    name?.toLowerCase().includes(filterValue.toLowerCase()) ||
+    phone?.toLowerCase().includes(filterValue.toLowerCase()) ||
+    email?.toLowerCase().includes(filterValue.toLowerCase())
+  );
+};
+
+function Admin() {
   const [data, setData] = useState(userData);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data,
     columns,
     state: {
-      columnFilters,
+      globalFilter,
     },
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: multiColumnFilter, // ← We'll define this below
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
@@ -147,8 +164,8 @@ function Admins() {
       <div className="flex justify-end">
         <Search
           name="table_search"
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
         />
       </div>
       <div className="overflow-hidden bg-white border border-gray-200 shadow-lg rounded-2xl">
@@ -189,4 +206,4 @@ function Admins() {
   );
 }
 
-export default Admins;
+export default Admin;
