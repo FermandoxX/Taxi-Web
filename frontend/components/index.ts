@@ -7,4 +7,7 @@ export { Header } from "./Header";
 export { SideBar } from "./SideBar";
 export { GroupLinkMenuItem } from "./GroupLinkMenuItem";
 export { DropdownProfil } from "./DropdownProfil";
-export { Search } from "./Table";
+export { Table } from "./Tables/ClientTable";
+export { TextCell } from "./Tables";
+export { RoleCell } from "./Tables";
+export { ActionCell } from "./Tables";
