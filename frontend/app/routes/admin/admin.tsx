@@ -1,8 +1,6 @@
 import { ActionCell, RoleCell, Table, TextCell } from "components";
 import { UserAvatar } from "components/UserAvatar";
 import { useState } from "react";
-import { BsPencilSquare } from "react-icons/bs";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { clientTable } from "~/hooks/clientTable";
 
 const userData = [

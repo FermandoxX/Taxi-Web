@@ -26,9 +26,10 @@ class AdminProfileRequest extends BaseRequest
             'name'=>['required','string','min:3'],
             'email'=>['required', 'email', 'string',Rule::unique('users')->ignore(auth()->id())],
             'phone_number'=>['required', 'min:9'],
-            'old_password'=>['required','current_password'],
-            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
-            'new_password_confirmation' => ['required', 'min:8'],
+            'old_password'=>['nullable', 'current_password'],
+            'new_password' => ['nullable','string', 'min:8', 'confirmed'],
+            'new_password_confirmation' => ['nullable','min:8'],
+            'profile_pic' => ['nullable','image','mimes:jpeg,png,jpg','max:5120']
         ];
     }
 

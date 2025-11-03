@@ -9,3 +9,7 @@ export function toastNotification(message: string, type: string = "success") {
       toast.success(message);
   }
 }
+
+export function image(url: string) {
+  return import.meta.env.VITE_IMAGE_URL + "/" + url;
+}

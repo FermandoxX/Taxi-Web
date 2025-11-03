@@ -58,7 +58,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone_number'
+        'phone_number',
+        'profile_pic'
     ];
 
     /**
@@ -70,7 +71,7 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**

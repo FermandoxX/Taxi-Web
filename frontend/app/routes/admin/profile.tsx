@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { postRequest } from "~/service/apiService";
 import { SUCCESS } from "~/constants/apiStatus";
 import { useNavigate } from "react-router";
+import { image } from "~/utils/helpers";
 
 function Profile() {
   const navigate = useNavigate();
@@ -29,11 +30,38 @@ function Profile() {
   });
 
   const updateProfile: SubmitHandler<ProfileValues> = async (data) => {
-    const result = await postRequest("/userUpdate", data);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("phone_number", data.phone_number);
+    if (data.old_password && data.old_password.trim() !== "") {
+      formData.append("old_password", data.old_password);
+    }
+
+    if (data.new_password && data.new_password.trim() !== "") {
+      formData.append("new_password", data.new_password);
+    }
+
+    if (
+      data.new_password_confirmation &&
+      data.new_password_confirmation.trim() !== ""
+    ) {
+      formData.append(
+        "new_password_confirmation",
+        data.new_password_confirmation
+      );
+    }
+
+    // Only append profile pic if a file was selected
+    if (data.profile_pic && data.profile_pic.length > 0) {
+      formData.append("profile_pic", data.profile_pic[0]);
+    }
+
+    const result = await postRequest("/userUpdate", formData);
 
     if (result.status === SUCCESS) {
       LocalStorageService.clear();
-
       navigate("/sign-in");
     }
   };
@@ -46,7 +74,7 @@ function Profile() {
         <div className="border border-gray-200 rounded-2xl p-6 flex items-center gap-5 justify-between">
           <div className="flex items-center gap-5">
             <UserAvatar
-              src="../../public/assets/images/profile/profile_pic.png"
+              src={image(LocalStorageService.get("user_data", "profile_pic"))}
               size="lg"
             />
 
@@ -182,6 +210,18 @@ function Profile() {
                     error={errors.new_password_confirmation?.message}
                     className="w-full"
                     label="Password Confirmation"
+                  />
+                </div>
+
+                <div className="grid gap-5">
+                  <InputField
+                    name="profile_pic"
+                    type="file"
+                    register={register}
+                    error={errors.profile_pic?.message}
+                    placeholder="Profile Picture"
+                    className="w-full"
+                    label="Profile Picture"
                   />
                 </div>
               </div>

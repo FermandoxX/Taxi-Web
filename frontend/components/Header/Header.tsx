@@ -8,6 +8,7 @@ import { Menu, MenuButton } from "@headlessui/react";
 import { menuItems } from "~/constants/profileDropDown";
 import LocalStorageService from "~/service/localStorageService";
 import { UserAvatar } from "components/UserAvatar";
+import { image } from "~/utils/helpers";
 
 export function Header() {
   const dropDownHeader = (
@@ -52,7 +53,9 @@ export function Header() {
         />
 
         <div className="flex items-center gap-2">
-          <UserAvatar src="../../public/assets/images/profile/profile_pic.png" />
+          <UserAvatar
+            src={image(LocalStorageService.get("user_data", "profile_pic"))}
+          />
           <Menu>
             <MenuButton className="flex items-center gap-2 text-sm font-medium border-none outline-none cursor-pointer focus:outline-none">
               {LocalStorageService.get("user_data", "name")}
