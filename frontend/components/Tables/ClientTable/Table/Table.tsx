@@ -4,12 +4,15 @@ import { flexRender } from "@tanstack/react-table";
 import { Search } from "../Search";
 import { Pagination } from "../Pagination";
 
-export function Table({ clientTable }: TableProps) {
+export function Table({ clientTable, tableTitle }: TableProps) {
   const table = clientTable.table;
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-end">
+        <p className="text-lg font-semibold text-gray-800 w-full">
+          {tableTitle}
+        </p>
         <Search
           name="table_search"
           globalFilter={clientTable.globalFilter}

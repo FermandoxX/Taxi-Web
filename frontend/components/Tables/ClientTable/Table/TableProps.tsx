@@ -6,4 +6,5 @@ export interface TableProps<T = any> {
     globalFilter: string;
     setGlobalFilter: (value: string) => void;
   };
+  tableTitle: string;
 }

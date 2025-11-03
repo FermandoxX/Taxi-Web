@@ -176,7 +176,7 @@ function Admin() {
     "phone_number",
   ]);
 
-  return <Table clientTable={clientTabale}></Table>;
+  return <Table tableTitle="Admin List" clientTable={clientTabale}></Table>;
 }
 
 export default Admin;
