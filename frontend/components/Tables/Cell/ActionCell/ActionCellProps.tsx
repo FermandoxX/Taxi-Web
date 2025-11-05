@@ -1,3 +1,4 @@
 export interface ActionCellProps {
-  value: string[];
+    value: string[];
+    onEdit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
