@@ -8,6 +8,7 @@ export function FormModal({
   children,
   onSubmit,
   header,
+  buttonLabel = "Save Changes",
 }: FormModalProps) {
   return (
     <Dialog open={isOpen} as="div" onClose={onClose}>
@@ -20,7 +21,7 @@ export function FormModal({
             <DialogTitle className="font-bold">{header}</DialogTitle>
             <Form
               onSubmit={onSubmit}
-              buttonLabel="Save Changes"
+              buttonLabel={buttonLabel}
               buttonName="update"
               className="flex flex-col gap-5"
               children={children}
